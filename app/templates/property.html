@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Add Property</h1>
+<br>
+<form action="{{url_for('add_property')}}" method="POST"> 
+    <div>
+        {{form.Property_Title.label}}
+        <br>
+        {{form.Property_Title}}
+
+    <br>
+        {{form.Description.label}}
+        <br>
+        {{form.Description}}
+    </div>
+<br>
+    <div class="row">
+        <div class="col-sm-6">
+            {{form.num_rooms.label}}
+            <br>
+            {{form.num_rooms}}
+        </div>
+
+        <div class="col-sm-6">
+            {{form.num_bathrooms.label}}
+            <br>
+            {{form.num_bathrooms}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            {{form.price.label}}
+            <br>
+            {{form.price}}
+        </div>
+
+        <div class="col-sm-6">
+            {{form.property_type.label}}
+            <br>
+            {{form.property_type}}
+        </div>
+    </div>
+    <br>
+    <div>
+        {{form.location.label}}
+            <br>
+        {{form.location}}
+        <br>
+        {{form.photo.label}}
+        <br>
+        {{form.photo}}
+    </div>
+<br>
+<br>
+    {{form.submit}}
+</form>
+
+{% endblock %}

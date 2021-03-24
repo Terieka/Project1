@@ -6,7 +6,10 @@ This file creates your application.
 """
 
 from app import app
+from app import db
 from flask import render_template, request, redirect, url_for
+from .forms import AddProperty
+from app.models import Properties
 
 
 ###
@@ -22,9 +25,29 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Terieka Henry")
+
+@app.route('/property')
+def add_property():
+    form=AddProperty()
+
+    if request.method=='POST' and form.validate_on_submit():
+        prop= Properties(property_id=property_id,Property_Title=form.Property_Title.data,Description=form.Description.data,num_rooms=form.num_rooms.data,num_bathrooms=form.num_bathrooms.data,price=form.price.data,property_type=form.property_type.data,location=form.location.data,photo=form.photo.data )
+        db.session.add(prop)
+        db.session.commit()
+        quit()
+        return redirect (url_for('properties'))
+        flash("Property Sucessfully added")
 
 
+    return render_template ('property.html',form=form)
+
+
+@app.route('/properties')
+def properties():
+    return render_template('properties.hmtl')
+
+@app.route()
 ###
 # The functions below should be applicable to all Flask apps.
 ###
