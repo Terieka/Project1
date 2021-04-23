@@ -27,15 +27,27 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Terieka Henry")
 
-@app.route('/property')
+@app.route('/property',methods=['get','post'])
 def add_property():
     form=AddProperty()
 
     if request.method=='POST' and form.validate_on_submit():
-        prop= Properties(property_id=property_id,Property_Title=form.Property_Title.data,Description=form.Description.data,num_rooms=form.num_rooms.data,num_bathrooms=form.num_bathrooms.data,price=form.price.data,property_type=form.property_type.data,location=form.location.data,photo=form.photo.data )
+
+        
+        Property_Title=request.form["Property_Title"]
+        Description=request.form["Description"]
+        num_rooms=request.form["num_rooms"]
+        num_bathrooms=request.form["num_bathrooms"]
+        price=request.form['price']
+        property_type=request.form['property_type']
+        location=request.form['location']
+        photo=request.form['photo']
+
+        prop = AddProperty(property_id,Property_Title,Description,num_rooms,num_bathrooms,price,photo)
         db.session.add(prop)
         db.session.commit()
         quit()
+        
         return redirect (url_for('properties'))
         flash("Property Sucessfully added")
 
@@ -47,7 +59,6 @@ def add_property():
 def properties():
     return render_template('properties.hmtl')
 
-@app.route()
 ###
 # The functions below should be applicable to all Flask apps.
 ###
